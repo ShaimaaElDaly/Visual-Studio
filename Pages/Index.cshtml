@@ -1,0 +1,84 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "My Best Song";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>@ViewData["Title"]</title>
+    <style>
+        body {
+            background-color: #f0f8ff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding-top: 30px;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            color: #1e90ff;
+            margin-bottom: 20px;
+        }
+
+        .video-container {
+            margin: 20px auto;
+            width: fit-content;
+            border: 5px solid #ccc;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .animated-box {
+            width: 100px;
+            height: 100px;
+            background-color: #ff6347;
+            margin: 50px auto;
+            border-radius: 10px;
+            position: relative;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Enjoy My Favorite Song 🎵</h1>
+        <div class="video-container">
+            <iframe width="914" height="514" src="https://www.youtube.com/embed/9XvXF1LrWgA" title="Godzilla (feat. Juice WRLD) [Official Audio]" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="animated-box" id="box"></div>
+    </div>
+    
+    <script>
+        window.onload = function () {
+            const box = document.getElementById('box');
+
+            const distance = 300;        // Max movement in pixels
+            const duration = 4000;       // Duration of one full back-and-forth cycle in ms
+
+            let startTime = null;
+
+            function animateBox(timestamp) {
+                if (!startTime) startTime = timestamp;
+
+                const elapsed = timestamp - startTime;
+                const progress = (elapsed % duration) / duration;
+
+                // Use sine wave for smooth back-and-forth motion
+                const x = distance * Math.sin(progress * 2 * Math.PI);
+
+                box.style.transform = `translateX(${x}px)`;
+
+                requestAnimationFrame(animateBox);
+            }
+
+            requestAnimationFrame(animateBox);
+        };
+    </script>
+
+</body>
+</html>
